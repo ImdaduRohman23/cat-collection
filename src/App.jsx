@@ -34,23 +34,26 @@ function App() {
 
   const handleRandomId = () => {
     const a = Math.floor(Math.random()*id.length);
-    setRandomId(id[a]);
+    axios.get(`https://api.thecatapi.com/v1/images/${id[a]}`)
+      .then(res => setCat(res.data))
+      .catch(err => console.log(err))
   };
 
-  const getDataCat = () => {
-    axios.get(`https://api.thecatapi.com/v1/images/EPF2ejNS0`)
-      .then(res => console.log(res))
-  }
+  // const getDataCat = () => {
+  //   axios.get(`https://api.thecatapi.com/v1/images/${randomId}`)
+  //     .then(res => console.log(res))
+  // }
 
-  const handleCat = () => {
-    getDataCat();
-  };
+  // const handleCat = () => {
+  //   getDataCat();
+  // };
 
-  console.log(randomId)
+  console.log(cat.url)
 
   return (
     <div className="App">
       <h1>Catch Cat App</h1>
+      <img src={cat.url} style={{width: '150px'}} alt="" />
       {/* {
         cats.map(cat => (
           <>
@@ -60,8 +63,7 @@ function App() {
         ))
       } */}
       <button onClick={() => {
-        // handleCat();
-        handleRandomId()
+        handleRandomId();
         }}>ClikMe</button>
     </div>
   );
